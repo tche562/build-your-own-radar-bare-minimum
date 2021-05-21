@@ -23,6 +23,8 @@ const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 
+const googlesheetURL = "1OMQvrnN3qwzfBx8y6I77EskuTf10iESeh1Wpvw8hz_4"; // tester google doc from https://www.thoughtworks.com/radar/how-to-byor
+
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
@@ -91,7 +93,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
       self.authenticate(false)
     })
 
-    function createBlips (__, tabletop) {
+    function createBlips(__, tabletop) {
       try {
         if (!sheetName) {
           sheetName = tabletop.foundSheetNames[0]
@@ -112,7 +114,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
     }
   }
 
-  function createBlipsForProtectedSheet (documentTitle, values, sheetNames) {
+  function createBlipsForProtectedSheet(documentTitle, values, sheetNames) {
     if (!sheetName) {
       sheetName = sheetNames[0]
     }
@@ -206,41 +208,44 @@ const GoogleSheetInput = function () {
     var queryString = window.location.href.match(/sheetId(.*)/)
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
 
+    // Check what file type we need to be processing
     if (domainName && queryParams.sheetId.endsWith('csv')) {
       sheet = CSVDocument(queryParams.sheetId)
       sheet.init().build()
-    } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
+    }
+    else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
       sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
       console.log(queryParams.sheetName)
 
       sheet.init().build()
-    } else {
+    }
+    else {
       var content = d3.select('body')
         .append('div')
-        .attr('class', 'input-sheet')
-      setDocumentTitle()
+        .attr('class', 'input-sheet');
+      setDocumentTitle();
 
-      plotLogo(content)
+      // plotLogo(content)
 
-      var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+      // var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
+      //   ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
 
-      plotBanner(content, bannerText)
+      // plotBanner(content, bannerText)
 
       plotForm(content)
 
-      plotFooter(content)
+      // plotFooter(content)
     }
   }
 
   return self
 }
 
-function setDocumentTitle () {
+function setDocumentTitle() {
   document.title = 'Build your own Radar'
 }
 
-function plotLoading (content) {
+function plotLoading(content) {
   content = d3.select('body')
     .append('div')
     .attr('class', 'loading')
@@ -249,39 +254,39 @@ function plotLoading (content) {
 
   setDocumentTitle()
 
-  plotLogo(content)
+  // plotLogo(content)
 
   var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>'
   plotBanner(content, bannerText)
-  plotFooter(content)
+  // plotFooter(content)
 }
 
-function plotLogo (content) {
-  content.append('div')
-    .attr('class', 'input-sheet__logo')
-    .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>')
-}
+// function plotLogo(content) {
+//   content.append('div')
+//     .attr('class', 'input-sheet__logo')
+//     .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>')
+// }
 
-function plotFooter (content) {
-  content
-    .append('div')
-    .attr('id', 'footer')
-    .append('div')
-    .attr('class', 'footer-content')
-    .append('p')
-    .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
-}
+// function plotFooter(content) {
+//   content
+//     .append('div')
+//     .attr('id', 'footer')
+//     .append('div')
+//     .attr('class', 'footer-content')
+//     .append('p')
+//     .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ' +
+//       'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
+//       'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+//       'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
+// }
 
-function plotBanner (content, text) {
+function plotBanner(content, text) {
   content.append('div')
     .attr('class', 'input-sheet__banner')
     .html(text)
 }
 
-function plotForm (content) {
+function plotForm(content) {
   content.append('div')
     .attr('class', 'input-sheet__form')
     .append('p')
@@ -305,7 +310,7 @@ function plotForm (content) {
   form.append('p').html("<a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>")
 }
 
-function plotErrorMessage (exception) {
+function plotErrorMessage(exception) {
   var message = 'Oops! It seems like there are some problems with loading your data. '
 
   var content = d3.select('body')
@@ -313,7 +318,7 @@ function plotErrorMessage (exception) {
     .attr('class', 'input-sheet')
   setDocumentTitle()
 
-  plotLogo(content)
+  // plotLogo(content)
 
   var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
     ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
@@ -346,16 +351,16 @@ function plotErrorMessage (exception) {
   errorContainer.append('div').append('p')
     .html(homePage)
 
-  plotFooter(content)
+  // plotFooter(content)
 }
 
-function plotUnauthorizedErrorMessage () {
+function plotUnauthorizedErrorMessage() {
   var content = d3.select('body')
     .append('div')
     .attr('class', 'input-sheet')
   setDocumentTitle()
 
-  plotLogo(content)
+  // plotLogo(content)
 
   var bannerText = '<div><h1>Build your own radar</h1></div>'
 

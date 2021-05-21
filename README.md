@@ -1,19 +1,18 @@
-[![Build Status](https://travis-ci.org/thoughtworks/build-your-own-radar.svg?branch=master)](https://travis-ci.org/thoughtworks/build-your-own-radar)
-[![Stars](https://badgen.net/github/stars/thoughtworks/build-your-own-radar)](https://github.com/thoughtworks/build-your-own-radar)
+<!-- [![Build Status](https://travis-ci.org/thoughtworks/build-your-own-radar.svg?branch=master)](https://travis-ci.org/thoughtworks/build-your-own-radar) -->
+[![Stars](https://badgen.net/github/stars/casp4/build-your-own-radar-bare-minimum)](https://github.com/casp4/build-your-own-radar-bare-minimum)
 [![dependencies Status](https://david-dm.org/thoughtworks/build-your-own-radar/status.svg)](https://david-dm.org/thoughtworks/build-your-own-radar)
 [![devDependencies Status](https://david-dm.org/thoughtworks/build-your-own-radar/dev-status.svg)](https://david-dm.org/thoughtworks/build-your-own-radar?type=dev)
 [![peerDependencies Status](https://david-dm.org/thoughtworks/build-your-own-radar/peer-status.svg)](https://david-dm.org/thoughtworks/build-your-own-radar?type=peer)
-[![Docker Hub Pulls](https://img.shields.io/docker/pulls/wwwthoughtworks/build-your-own-radar.svg)](https://hub.docker.com/r/wwwthoughtworks/build-your-own-radar)
-[![GitHub contributors](https://badgen.net/github/contributors/thoughtworks/build-your-own-radar?color=cyan)](https://github.com/thoughtworks/build-your-own-radar/graphs/contributors)
+<!-- [![Docker Hub Pulls](https://img.shields.io/docker/pulls/wwwthoughtworks/build-your-own-radar.svg)](https://hub.docker.com/r/wwwthoughtworks/build-your-own-radar) -->
+[![GitHub contributors](https://badgen.net/github/contributors/casp4/build-your-own-radar-bare-minimum?color=cyan)](https://github.com/casp4/build-your-own-radar-bare-minimum/graphs/contributors)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![AGPL License](https://badgen.net/github/license/thoughtworks/build-your-own-radar)](https://github.com/thoughtworks/build-your-own-radar)
+[![AGPL License](https://badgen.net/github/license/casp4/build-your-own-radar-bare-minimum)](https://github.com/casp4/build-your-own-radar-bare-minimum)
 
-
-A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
+A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar). Stripped down to the bare minimum to get the radar and google sheet data showing. Taking in the URL via env variable.
 
 ## Demo
 
-You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/18A7oDuavlh89rAmqcaXpqle8QLqIvlAkoEUxcObzuUM/edit#gid=1985253373) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F18A7oDuavlh89rAmqcaXpqle8QLqIvlAkoEUxcObzuUM%2Fedit%23gid%3D1985253373). 
+You can see the original repo in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/18A7oDuavlh89rAmqcaXpqle8QLqIvlAkoEUxcObzuUM/edit#gid=1985253373) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F18A7oDuavlh89rAmqcaXpqle8QLqIvlAkoEUxcObzuUM%2Fedit%23gid%3D1985253373). 
 
 ## How To Use
 
@@ -27,6 +26,7 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 
 | name          | ring   | quadrant               | isNew | description                                             |
 |---------------|--------|------------------------|-------|---------------------------------------------------------|
+|`<Title>`|`<One of the 4 ring names>`|`<One of the four quadrant names>`|`<boolean>`|`<HTML containing any text you want to show in expanded section>`|
 | Composer      | adopt  | tools                  | TRUE  | Although the idea of dependency management ...          |
 | Canary builds | trial  | techniques             | FALSE | Many projects have external code dependencies ...       |
 | Apache Kylin  | assess | platforms              | TRUE  | Apache Kylin is an open source analytics solution ...   |
@@ -101,12 +101,14 @@ $ open http://localhost:8080
 All tasks are defined in `package.json`.
 
 Pull requests are welcome; please write tests whenever possible. 
-Make sure you have nodejs installed.
+Make sure you have *nodejs 12* installed. (Or any version below 14 and maybe above 10)
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`
+- swap to node 10/12 with nvm
 - `npm install`
 - `npm test` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
+- Press F5 to launch VSCode debugger.
 
 To run End to End tests in headless mode
 - add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
@@ -119,7 +121,8 @@ To run End to End tests in debug mode
 
 ### Don't want to install node? Run with one line docker
 
-     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:10.15.3 /bin/sh -c 'npm install && npm run dev'
+     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:10.15.3 /bin/sh -c 'npm ci --no-optionals && npm run dev'
+     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:10.15.3 /bin/sh -c 'npm install && npm rebuild node-sass && npm run dev'
 
 ***Note***: If you are facing Node-sass compile error while running, please prefix the command `npm rebuild node-sass` before `npm run dev`. like this
 ```

@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "description": "",
   "main": "index.js",
+  "engines": {"node": ">=10.13.0 && <14"},
   "scripts": {
     "test": "standard --fix && istanbul cover jasmine",
     "test:lint": "npx standard",
@@ -22,6 +23,7 @@
   "license": "AGPL-3.0",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/eslint-parser": "^7.13.14",
     "babel-loader": "^8.0.4",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^3.2.1",
@@ -77,6 +79,7 @@
     "ignore": [
       "radar-spec.js",
       "ref-table-spec.js"
-    ]
+    ],
+    "parser": "@babel/eslint-parser"
   }
 }
