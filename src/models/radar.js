@@ -1,6 +1,8 @@
 // here is the mester branch. Get new branch for it.
 // change for comparison with B_5
-//B_5B
+//final 
+
+
 const MalformedDataError = require('../exceptions/malformedDataError')
 const ExceptionMessages = require('../util/exceptionMessages')
 
