@@ -74,7 +74,7 @@ const Radar = function () {
       return ring.order()
     })
   }
-
+// try to add comments at the other place
   self.quadrants = function () {
     return quadrants
   }
