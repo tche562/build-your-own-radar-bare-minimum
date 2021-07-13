@@ -1,3 +1,5 @@
+// here is the mester branch. Get new branch for it.
+
 const MalformedDataError = require('../exceptions/malformedDataError')
 const ExceptionMessages = require('../util/exceptionMessages')
 
@@ -6,7 +8,7 @@ const _ = {
   uniqBy: require('lodash/uniqBy'),
   sortBy: require('lodash/sortBy')
 }
-
+// here is the useless comments for the test of branch stu
 const Radar = function () {
   var self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName
 
