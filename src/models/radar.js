@@ -6,7 +6,7 @@ const _ = {
   uniqBy: require('lodash/uniqBy'),
   sortBy: require('lodash/sortBy')
 }
-
+// here is the useless comments for the test of branch stu
 const Radar = function () {
   var self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName
 
