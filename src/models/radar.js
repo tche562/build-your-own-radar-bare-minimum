@@ -1,14 +1,3 @@
-// here is the mester branch. Get new branch for it.
-// change for comparison with B_5
-//final 
-// contrast for master and B_5B
-
-//B_5B stage_2
-
-//second stage change
-//second stage change_2
-
-//force push change_1
 const MalformedDataError = require('../exceptions/malformedDataError')
 const ExceptionMessages = require('../util/exceptionMessages')
 
@@ -17,7 +6,7 @@ const _ = {
   uniqBy: require('lodash/uniqBy'),
   sortBy: require('lodash/sortBy')
 }
-// here is the useless comments for the test of branch stu
+
 const Radar = function () {
   var self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName
 
