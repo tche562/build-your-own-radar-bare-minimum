@@ -3,7 +3,9 @@
   "version": "0.3.0",
   "description": "",
   "main": "index.js",
-  "engines": {"node": ">=10.13.0 && <14"},
+  "engines": {
+    "node": ">=10.13.0 && <14"
+  },
   "scripts": {
     "test": "standard --fix && istanbul cover jasmine",
     "test:lint": "npx standard",
